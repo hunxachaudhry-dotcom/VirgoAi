@@ -110,6 +110,57 @@ export interface QuotaInfo {
   allowedDurations: number[];
 }
 
+export interface OpenaiConversation {
+  id: number;
+  title: string;
+  createdAt: string;
+}
+
+export interface OpenaiMessage {
+  id: number;
+  conversationId: number;
+  role: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface OpenaiConversationWithMessages {
+  id: number;
+  title: string;
+  createdAt: string;
+  messages: OpenaiMessage[];
+}
+
+export interface OpenaiConversationInput {
+  title: string;
+}
+
+export interface OpenaiMessageInput {
+  content: string;
+}
+
+export type OpenaiImageInputSize = typeof OpenaiImageInputSize[keyof typeof OpenaiImageInputSize];
+
+
+export const OpenaiImageInputSize = {
+  '1024x1024': '1024x1024',
+  '1536x1024': '1536x1024',
+  '1024x1536': '1024x1536',
+} as const;
+
+export interface OpenaiImageInput {
+  prompt: string;
+  size?: OpenaiImageInputSize;
+}
+
+export interface OpenaiImageOutput {
+  b64_json: string;
+}
+
+export interface OpenaiError {
+  error: string;
+}
+
 export interface VideoStats {
   total: number;
   pending: number;

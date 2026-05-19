@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Film, History, BarChart2, Crown, LogOut } from "lucide-react";
+import { Film, History, BarChart2, Crown, LogOut, MessageSquare, ImageIcon } from "lucide-react";
 import { usePlan } from "@/context/plan";
 import { UnlockDialog } from "@/components/unlock-dialog";
 
@@ -10,7 +10,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [unlockOpen, setUnlockOpen] = useState(false);
 
   const links = [
-    { href: "/", label: "Generate", icon: Film },
+    { href: "/", label: "Chat", icon: MessageSquare },
+    { href: "/image", label: "Image", icon: ImageIcon },
+    { href: "/video", label: "Video", icon: Film },
     { href: "/history", label: "History", icon: History },
     { href: "/stats", label: "Stats", icon: BarChart2 },
   ];

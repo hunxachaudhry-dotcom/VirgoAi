@@ -8,6 +8,15 @@
 
 export * from './apiError';
 export * from './healthStatus';
+export * from './openaiConversation';
+export * from './openaiConversationInput';
+export * from './openaiConversationWithMessages';
+export * from './openaiError';
+export * from './openaiImageInput';
+export * from './openaiImageInputSize';
+export * from './openaiImageOutput';
+export * from './openaiMessage';
+export * from './openaiMessageInput';
 export * from './planInfo';
 export * from './planInfoPlan';
 export * from './quotaInfo';
