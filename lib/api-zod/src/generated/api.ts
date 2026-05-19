@@ -41,12 +41,12 @@ export const ListVideosResponse = zod.array(ListVideosResponseItem)
 export const generateVideoBodyPromptMin = 3;
 
 export const generateVideoBodyAspectRatioDefault = `16:9`;
-export const generateVideoBodyDurationDefault = 6;
+export const generateVideoBodyDurationDefault = 4;
 
 export const GenerateVideoBody = zod.object({
   "prompt": zod.string().min(generateVideoBodyPromptMin),
   "aspectRatio": zod.enum(['16:9', '9:16']).default(generateVideoBodyAspectRatioDefault),
-  "duration": zod.union([zod.literal(4),zod.literal(6),zod.literal(8)]).default(generateVideoBodyDurationDefault)
+  "duration": zod.union([zod.literal(2),zod.literal(3),zod.literal(4),zod.literal(5),zod.literal(8)]).default(generateVideoBodyDurationDefault)
 })
 
 
@@ -97,6 +97,34 @@ export const GetVideoStatusResponse = zod.object({
   "falRequestId": zod.string().nullish(),
   "createdAt": zod.string(),
   "updatedAt": zod.string().nullish()
+})
+
+
+/**
+ * @summary Unlock a plan using an access code
+ */
+export const UnlockPlanBody = zod.object({
+  "code": zod.string()
+})
+
+export const UnlockPlanResponse = zod.object({
+  "plan": zod.enum(['free', 'premium', 'admin'])
+})
+
+
+/**
+ * @summary Get current plan quota and usage
+ */
+export const GetQuotaHeader = zod.object({
+  "x-plan-code": zod.string().optional()
+})
+
+export const GetQuotaResponse = zod.object({
+  "plan": zod.enum(['free', 'premium', 'admin']),
+  "used": zod.number(),
+  "limit": zod.number().nullable(),
+  "canGenerate": zod.boolean(),
+  "allowedDurations": zod.array(zod.number())
 })
 
 

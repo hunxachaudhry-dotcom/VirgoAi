@@ -8,6 +8,11 @@
 
 export * from './apiError';
 export * from './healthStatus';
+export * from './planInfo';
+export * from './planInfoPlan';
+export * from './quotaInfo';
+export * from './quotaInfoPlan';
+export * from './unlockInput';
 export * from './video';
 export * from './videoAspectRatio';
 export * from './videoInput';

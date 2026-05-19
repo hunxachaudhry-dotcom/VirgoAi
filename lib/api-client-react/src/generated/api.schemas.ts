@@ -61,8 +61,10 @@ export type VideoInputDuration = typeof VideoInputDuration[keyof typeof VideoInp
 
 
 export const VideoInputDuration = {
+  NUMBER_2: 2,
+  NUMBER_3: 3,
   NUMBER_4: 4,
-  NUMBER_6: 6,
+  NUMBER_5: 5,
   NUMBER_8: 8,
 } as const;
 
@@ -71,6 +73,41 @@ export interface VideoInput {
   prompt: string;
   aspectRatio?: VideoInputAspectRatio;
   duration?: VideoInputDuration;
+}
+
+export interface UnlockInput {
+  code: string;
+}
+
+export type PlanInfoPlan = typeof PlanInfoPlan[keyof typeof PlanInfoPlan];
+
+
+export const PlanInfoPlan = {
+  free: 'free',
+  premium: 'premium',
+  admin: 'admin',
+} as const;
+
+export interface PlanInfo {
+  plan: PlanInfoPlan;
+}
+
+export type QuotaInfoPlan = typeof QuotaInfoPlan[keyof typeof QuotaInfoPlan];
+
+
+export const QuotaInfoPlan = {
+  free: 'free',
+  premium: 'premium',
+  admin: 'admin',
+} as const;
+
+export interface QuotaInfo {
+  plan: QuotaInfoPlan;
+  used: number;
+  /** @nullable */
+  limit: number | null;
+  canGenerate: boolean;
+  allowedDurations: number[];
 }
 
 export interface VideoStats {

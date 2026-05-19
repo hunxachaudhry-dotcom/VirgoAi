@@ -30,3 +30,9 @@ externalPort = 80
 [[ports]]
 localPort = 18452
 externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+ADMIN_CODE = "creator-b019847c"
+PREMIUM_CODE = "premium-934b2e80"

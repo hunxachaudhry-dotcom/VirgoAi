@@ -69,6 +69,22 @@ router.post("/videos", async (req, res) => {
     return;
   }
 
+  // Enforce plan limits
+  const { resolvePlan, getQuotaForPlan } = await import("./plans.js");
+  const planCode = req.headers["x-plan-code"] as string | undefined;
+  const plan = resolvePlan(planCode);
+  const quota = await getQuotaForPlan(plan);
+
+  if (!quota.allowedDurations.includes(duration)) {
+    res.status(403).json({ error: `Duration ${duration}s requires a Premium plan.` });
+    return;
+  }
+
+  if (!quota.canGenerate) {
+    res.status(429).json({ error: `Free plan limit reached (${quota.limit} videos/day). Upgrade to Premium for unlimited.` });
+    return;
+  }
+
   // Insert as pending first
   const [video] = await db
     .insert(videosTable)

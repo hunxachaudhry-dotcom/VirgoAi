@@ -22,6 +22,9 @@ import type {
 import type {
   ApiError,
   HealthStatus,
+  PlanInfo,
+  QuotaInfo,
+  UnlockInput,
   Video,
   VideoInput,
   VideoStats
@@ -477,6 +480,154 @@ export function useGetVideoStatus<TData = Awaited<ReturnType<typeof getVideoStat
  ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
 
   const queryOptions = getGetVideoStatusQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getUnlockPlanUrl = () => {
+
+
+
+
+  return `/api/unlock`
+}
+
+/**
+ * @summary Unlock a plan using an access code
+ */
+export const unlockPlan = async (unlockInput: UnlockInput, options?: RequestInit): Promise<PlanInfo> => {
+
+  return customFetch<PlanInfo>(getUnlockPlanUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      unlockInput,)
+  }
+);}
+
+
+
+
+export const getUnlockPlanMutationOptions = <TError = ErrorType<ApiError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockPlan>>, TError,{data: BodyType<UnlockInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof unlockPlan>>, TError,{data: BodyType<UnlockInput>}, TContext> => {
+
+const mutationKey = ['unlockPlan'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof unlockPlan>>, {data: BodyType<UnlockInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  unlockPlan(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UnlockPlanMutationResult = NonNullable<Awaited<ReturnType<typeof unlockPlan>>>
+    export type UnlockPlanMutationBody = BodyType<UnlockInput>
+    export type UnlockPlanMutationError = ErrorType<ApiError>
+
+    /**
+ * @summary Unlock a plan using an access code
+ */
+export const useUnlockPlan = <TError = ErrorType<ApiError>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof unlockPlan>>, TError,{data: BodyType<UnlockInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof unlockPlan>>,
+        TError,
+        {data: BodyType<UnlockInput>},
+        TContext
+      > => {
+      return useMutation(getUnlockPlanMutationOptions(options));
+    }
+
+export const getGetQuotaUrl = () => {
+
+
+
+
+  return `/api/quota`
+}
+
+/**
+ * @summary Get current plan quota and usage
+ */
+export const getQuota = async ( options?: RequestInit): Promise<QuotaInfo> => {
+
+  return customFetch<QuotaInfo>(getGetQuotaUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetQuotaQueryKey = () => {
+    return [
+    `/api/quota`
+    ] as const;
+    }
+
+
+export const getGetQuotaQueryOptions = <TData = Awaited<ReturnType<typeof getQuota>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getQuota>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetQuotaQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getQuota>>> = ({ signal }) => getQuota({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getQuota>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetQuotaQueryResult = NonNullable<Awaited<ReturnType<typeof getQuota>>>
+export type GetQuotaQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get current plan quota and usage
+ */
+
+export function useGetQuota<TData = Awaited<ReturnType<typeof getQuota>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getQuota>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetQuotaQueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
