@@ -28,7 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="h-16 flex items-center px-5 border-b border-border">
           <div className="flex items-center gap-2 text-primary">
             <Film className="h-5 w-5" />
-            <span className="font-bold text-base tracking-tight">AI STUDIO</span>
+            <span className="font-bold text-base tracking-tight">VirgoAI</span>
           </div>
         </div>
 
@@ -87,7 +87,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="md:hidden h-14 flex items-center px-4 border-b border-border bg-card justify-between">
           <div className="flex items-center gap-2 text-primary">
             <Film className="h-5 w-5" />
-            <span className="font-bold text-base tracking-tight">AI STUDIO</span>
+            <span className="font-bold text-base tracking-tight">VirgoAI</span>
           </div>
           <div className="flex items-center gap-3">
             <span className={`text-xs px-2 py-1 rounded border ${planColor}`}>{planLabel}</span>

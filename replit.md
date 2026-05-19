@@ -1,6 +1,6 @@
-# [Project name]
+# VirgoAI
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+AI-powered video generator where users type a prompt and get short videos (2–8 seconds).
 
 ## Run & Operate
 
